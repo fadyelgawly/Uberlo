@@ -49,11 +49,21 @@ passport.use(
                 // create the user
                 var newUserMysql = {
                     username: username,
-                    password: bcrypt.hashSync(password, null, null)  // use the generateHash function in our user model
+                    password: bcrypt.hashSync(password, null, null),
+                    name: req.name,
+                    phone: req.phone,
+                    isDriver: req.isDriver
                 };
 
-                var insertQuery = "INSERT INTO users ( username, password ) values (?,?)";
-                connection.query(insertQuery,[newUserMysql.username, newUserMysql.password],function(err, rows) {
+                var insertQuery = "INSERT INTO users ( username, password, name, phone, isDriver) values (?,?,?,?,?)";
+                connection.query(insertQuery,[  
+                        newUserMysql.username, 
+                        newUserMysql.password,    
+                        newUserMysql.name, 
+                        newUserMysql.password,
+                        newUserMysql.isDriver
+                        ],
+                    function(err, rows) {
                     if(err)
                         return done(err);
                     newUserMysql.id = rows.insertId;
