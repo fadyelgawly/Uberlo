@@ -24,7 +24,7 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-router.patch('/:id', (req, res, next) => {
+router.patch('/:id', isLoggedIn, (req, res, next) => {
     const id = req.params.id;
     res.status(200).json({
         message: 'Updated',
@@ -32,12 +32,22 @@ router.patch('/:id', (req, res, next) => {
     });
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', isLoggedIn, (req, res, next) => {
     const id = req.params.id;
     res.status(200).json({
         message: 'Deleted',
         id : id
     });
 });
+
+
+function isLoggedIn(req, res, next) {
+	// if user is authenticated in the session, carry on
+	if (req.isAuthenticated())
+		return next();
+
+	// if they aren't redirect them to the home page
+	res.redirect('/user/login');
+}
 
 module.exports = router;

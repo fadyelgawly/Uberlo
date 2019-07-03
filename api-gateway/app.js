@@ -2,47 +2,56 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+const cors = require('cors');
+var passport = require('passport');
+
 const ridesRoutes = require('./api/routes/rides');
 const userRoutes = require('./api/routes/user');
 
 
-
+require('./middleware/passport')(passport)
 
 //Middle-wares
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended : false}));
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(cors());
 
-//CORS Error Handling
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', '*');
-
-    if (req.method === 'OPTIONS'){
-        res.header('Access-Control-Allow-Methods', 'PUT, PUSH, PATCH, DELETE, GET, POST');
-        return res.status(200).json({});
-    }
-    next();
-});
 
 
 //APIs
 app.use('/rides', ridesRoutes);
 app.use('/user', userRoutes);
 
-
+//Error Handeling
 app.use((req, res, next) => {
     const error = new Error('Not found');
     error.status = 404;
     next(error);
 });
-
-app.use((error, req, res, next) =>{
-    res.status(error.status || 500);
-    res.json({
-        error: {
-        message: error.message
-        }
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
+    });
+}
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
     });
 });
 
