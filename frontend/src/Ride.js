@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-import Form from './components/Form';
+import SignUp from './components/Form';
 
 export class Ride extends Component{
 
@@ -19,17 +19,17 @@ export class Ride extends Component{
               'Accept': 'application/json',
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ ...fields })
+            body: JSON.stringify({ fields })
             }).then(function(data){ 
                 console.log(data.status)
-                });;
+                });
 
         
     };
     render(){
         return(
             <div>
-                <Form onSubmit= { fields => this.onSubmit(fields)} />
+                <SignUp />
                 <p>
                 {JSON.stringify(this.state.fields, null, 2)}
                 </p>
