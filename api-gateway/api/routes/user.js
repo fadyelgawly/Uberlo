@@ -1,25 +1,50 @@
 const express = require('express');
-const connection = require('../../db')
 const router = express.Router();
 
 
-router.post('/signup', (req, res, next) => {
-    passport.authenticate('local-signup', { successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true })
-});
 
 
-app.post('/login',
-  passport.authenticate('local-login', { successRedirect: '/',
-                                    failureRedirect: '/login',
-                                    failureFlash: true })
-);
+module.exports = function(passport) {
+    router.post("/signup", function(req, res) {
+        passport.authenticate("local-signup", function(err, user, info) {
+            if (err) {
+            res.status(404).json(err);
+            return;
+            }
 
-app.get('/logout', function(req, res){
-    req.logout();
-    res.redirect('/');
-});
+            if (user) {
+            res.status(200);
+            res.json({
+                userInfo: user,
+            });
+            } else {
+            res.status(401).json(info);
+            }
+        })(req, res);
+    });
 
+    router.post("/login", function(req, res) {
+        passport.authenticate('local-login', function(err, user, info) {
+            if (err) {
+            res.status(404).json(err);
+            return;
+            }
 
-module.exports = router;
+            if (user) {
+            res.status(200);
+            res.json({
+                userInfo: user,
+            });
+            } else {
+            res.status(401).json(info);
+            }
+        })(req, res);
+    });
+
+    router.get('/logout', function(req, res){
+        req.logout();
+        res.redirect('/');
+    });
+
+    return router;
+};

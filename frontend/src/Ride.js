@@ -19,7 +19,7 @@ export class Ride extends Component{
               'Accept': 'application/json',
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ fields })
+            body: JSON.stringify({ ...fields })
             }).then(function(data){ 
                 console.log(data.status)
                 });;
