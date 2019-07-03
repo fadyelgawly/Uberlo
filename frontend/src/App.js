@@ -1,4 +1,4 @@
-import React, {Component } from 'react';
+import React /*, {Component } */from 'react';
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Home } from './Home';
 import { Ride } from './Ride';

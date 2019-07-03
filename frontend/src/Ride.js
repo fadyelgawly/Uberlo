@@ -9,6 +9,22 @@ export class Ride extends Component{
 
     onSubmit = fields => {
         this.setState({ fields });
+
+        console.log('Submitting');
+
+
+        fetch('http://localhost:4000/user/signup', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ fields })
+            }).then(function(data){ 
+                console.log(data.status)
+                });;
+
+        
     };
     render(){
         return(

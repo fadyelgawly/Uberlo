@@ -2,11 +2,12 @@ import React from 'react';
 
 export default class Form extends React.Component {
     state = {
-        firstName: '',
-        lastName: '',
         username: '',
+        password: '',
         email: '',
-        password: ''
+        isDriver: '0',
+        phone: '',
+        isConfirmed: '0'
     }
 
     change = e => {
@@ -24,32 +25,25 @@ export default class Form extends React.Component {
         return(
             <form>
                 <input 
-                name="firstName"
-                placeholder= 'First Name' 
+                name="username"
+                placeholder= 'username' 
                 value= {this.state.firstname} 
                 onChange={e => this.change(e)}
                 />
                 <br/>
                 <input 
-                name="lastName"
-                placeholder= 'Last Name' 
+                name="email"
+                placeholder= 'email' 
                 value= {this.state.firstname} 
                 onChange={e => this.change(e)}
                 /> 
                 <br/>
                 <input 
-                name="username"
-                placeholder= 'Username' 
+                name="phone"
+                placeholder= 'phone' 
                 value= {this.state.firstname} 
                 onChange={e => this.change(e)}
                 />  
-                <br/> 
-                 <input 
-                name="email"
-                placeholder= 'Email' 
-                value= {this.state.firstname} 
-                onChange={e => this.change(e)}
-                />
                 <br/>
                  <input 
                 name="password"
