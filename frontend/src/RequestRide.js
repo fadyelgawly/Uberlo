@@ -6,13 +6,24 @@ import Container from '@material-ui/core/Container';
 
 
 export class RequestRide extends Component {
+
+
     render(){
+
+        const userJSON =  localStorage.getItem('userdata');
+
+        const user = JSON.parse(userJSON).userInfo;
+       
+        
+
+        console.log(user);
+
         return(
     <div>
         <Container>
-            <h1>
-                Hello firstname lastname
-            </h1>
+            <h2>
+                Hello {user.firstname} {user.lastname}
+            </h2>
             <Grid>   
             <Dropdown>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">

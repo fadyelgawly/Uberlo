@@ -13,8 +13,7 @@ module.exports = function(passport) {
             }
 
             if (user) {
-            res.status(200);
-            res.json({
+            res.status(200).json({
                 userInfo: user,
             });
             } else {
@@ -29,7 +28,6 @@ module.exports = function(passport) {
             res.status(404).json(err);
             return;
             }
-
             if (user) {
                 res.status(200).json({
                     userInfo: user,

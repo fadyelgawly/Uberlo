@@ -32,6 +32,8 @@ export class Login extends Component{
             self.setState({ 
                  loggedin : true 
             });
+            localStorage.setItem('userdata', JSON.stringify(response.data));
+            
         })
         .catch(function (error) {
             console.log(error);
