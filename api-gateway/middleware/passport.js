@@ -50,17 +50,19 @@ passport.use(
                 var newUserMysql = {
                     username: username,
                     password: bcrypt.hashSync(password, null, null),
-                    name: req.name,
+                    firstname: req.firstname,
+                    lastname: req.lastname,
                     phone: req.phone,
                     isDriver: req.isDriver
                 };
 
-                var insertQuery = "INSERT INTO users ( username, password, name, phone, isDriver) values (?,?,?,?,?)";
+                var insertQuery = "INSERT INTO users ( username, password, firstname,lastname , phonenumber, isDriver) values (?,?,?,?,?,?)";
                 connection.query(insertQuery,[  
                         newUserMysql.username, 
                         newUserMysql.password,    
-                        newUserMysql.name, 
-                        newUserMysql.password,
+                        newUserMysql.firstname, 
+                        newUserMysql.lastname,
+                        newUserMysql.firstname,
                         newUserMysql.isDriver
                         ],
                     function(err, rows) {

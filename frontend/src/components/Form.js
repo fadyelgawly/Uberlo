@@ -35,31 +35,10 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-export default function SignUp() {
+export default function SignUp(props) {
 
   const classes = useStyles();
-
-    // state = {
-    //     username: '',
-    //     password: '',
-    //     email: '',
-    //     isDriver: '0',
-    //     phone: '',
-    //     isConfirmed: '0'
-    // }
-    
-    // classes = useStyles();
-
-    // change = e => {
-    //     this.setState({
-    //         [e.target.name]:e.target.value
-    //     });
-    // };
-
-    // onSubmit = e => {
-    //     e.preventDefault();
-    //     this.props.onSubmit(this.state);
-    // };
+  
 
     return(
         <Container component="main" maxWidth="xs">
@@ -76,12 +55,13 @@ export default function SignUp() {
                 <Grid item xs={12} sm={6}>
                 <TextField
                     autoComplete="fname"
-                    name="firstName"
+                    name="firstname"
                     variant="outlined"
                     required
                     fullWidth
                     id="firstName"
                     label="First Name"
+                    onChange={props.handleInputChange}
                     autoFocus
                 />
                 </Grid>
@@ -92,7 +72,8 @@ export default function SignUp() {
                     fullWidth
                     id="lastName"
                     label="Last Name"
-                    name="lastName"
+                    name="lastname"
+                    onChange={props.handleInputChange}
                     autoComplete="lname"
                 />
                 </Grid>
@@ -104,6 +85,7 @@ export default function SignUp() {
                     id="username"
                     label="User Name"
                     name="username"
+                    onChange={props.handleInputChange}
                     autoComplete="username"
                 />
                 </Grid>
@@ -116,6 +98,7 @@ export default function SignUp() {
                     label="Password"
                     type="password"
                     id="password"
+                    onChange={props.handleInputChange}
                     autoComplete="current-password"
                 />
                 </Grid>
@@ -128,6 +111,7 @@ export default function SignUp() {
                     label="Confirm Password"
                     type="password"
                     id="confirmPassword"
+                    onChange={props.handleInputChange}
                     autoComplete="current-password"
                 />
                 </Grid>
@@ -138,7 +122,11 @@ export default function SignUp() {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-            >
+                onClick={(e) => { 
+                    e.preventDefault();
+                    props.onSubmit(); 
+                }
+            }>
                 Sign Up
             </Button>
             <Grid container justify="flex-end">
