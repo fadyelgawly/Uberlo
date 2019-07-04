@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-import { Route, Redirect } from 'react-router'
+import { Redirect } from 'react-router'
 import SignUp from './components/Form';
 
 
@@ -7,7 +7,7 @@ import SignUp from './components/Form';
 export class Ride extends Component{
 
     state = { 
-        loggedIn: false
+        signup: false
     };
 
     handleInputChange = (event) => {
@@ -22,7 +22,7 @@ export class Ride extends Component{
 
     onSubmit = () => {
         console.log('Submitting');
-
+        const self = this;
         fetch('http://localhost:4000/user/signup', {
             method: 'POST',
             headers: {
@@ -31,19 +31,18 @@ export class Ride extends Component{
             },
             body: JSON.stringify( this.state )
             }).then(function(data){ 
-                if(data.status == 200){
-                    this.setState({ loggedIn : true });
-
+                if(data.status === 200){
+                    self.setState({ 
+                        signup : true 
+                    });
                 }
-
             });
-
-        
     };
     render(){
-        if (this.state.loggedIn){
+        if (this.state.signup){
+
             return(
-                <Redirect to= "/request/ride"/>
+                <Redirect to= "/login"/>
             );
         }
         return(

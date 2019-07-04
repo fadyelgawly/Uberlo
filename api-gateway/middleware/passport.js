@@ -43,7 +43,7 @@ passport.use(
             if (err)
                 return done(err);
             if (rows.length) {
-                return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+                return done(null, false);
             } else {
                 // if there is no user with that username
                 // create the user
@@ -56,7 +56,7 @@ passport.use(
                     isDriver: req.isDriver
                 };
 
-                var insertQuery = "INSERT INTO users ( username, password, firstname,lastname , phonenumber, isDriver) values (?,?,?,?,?,?)";
+                var insertQuery = "INSERT INTO users ( username, password, firstname,lastname , phone, isDriver) values (?,?,?,?,?,?)";
                 connection.query(insertQuery,[  
                         newUserMysql.username, 
                         newUserMysql.password,    
