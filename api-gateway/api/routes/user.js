@@ -31,10 +31,9 @@ module.exports = function(passport) {
             }
 
             if (user) {
-            res.status(200);
-            res.json({
-                userInfo: user,
-            });
+                res.status(200).json({
+                    userInfo: user,
+                });
             } else {
             res.status(401).json(info);
             }
