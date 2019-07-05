@@ -27,7 +27,7 @@ router.get('/getUserRides',(req, res, next) => {
 });
 
 
-router.get('/requestRide', (req, res, next) => {
+router.post('/requestRide', (req, res, next) => {
     const fromArea = req.body.fromArea;
     const toArea = req.body.toArea;
 
