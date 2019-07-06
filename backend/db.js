@@ -2,10 +2,10 @@ const mysql = require('mysql');
 
 var connection = mysql.createConnection({
     host:'localhost',
-    port: '3306',
+    port: '8889',
     user:'root',
-    password:'',
-    database: 'test_database'
+    password:'root',
+    database: 'uberlo'
 });
 
 connection.connect(err => {

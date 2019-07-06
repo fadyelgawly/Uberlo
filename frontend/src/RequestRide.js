@@ -11,10 +11,27 @@ export class RequestRide extends Component {
 
     state = {};
 
+
+    componentDidMount(){
+
+        const userJSON =  localStorage.getItem('userdata');
+        const user = JSON.parse(userJSON).userInfo;
+
+        this.setState( {
+            rider: user.id,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            fromArea: 0,
+            toArea:2
+        });
+    
+    }
+
+
    
      
 
-     handleInputChange = (event) => {
+    handleInputChange = (event) => {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -26,21 +43,9 @@ export class RequestRide extends Component {
 
     onSubmit = () => {
 
-        /////
+        
 
-        //This code must be executed ones when the page loads up mesh on submit
-        const userJSON =  localStorage.getItem('userdata');
-        const user = JSON.parse(userJSON).userInfo;
-
-        this.state = {
-          rider: user.id,
-            firstname: user.firstname,
-            lastname: user.lastname
-        };
-
-        ////////
-
-        axios.post('http://localhost:4000/requestRide', {
+        axios.post('http://localhost:4000/rides/requestRide', {
             ...this.state
         })
         .then(function (response) {
@@ -53,20 +58,39 @@ export class RequestRide extends Component {
    
     render(){
 
-        
-
         return(
             <div>
-                <Container>
-                    <h2>
+                <h2>
                         Hello {this.state.firstname} {this.state.lastname}
                     </h2>
+                <Container maxWidth="xs">
+                    
                     <Grid>   
+                        <PopupState 
+                        variant="popover" 
+                        popupId="demo-popup-menu">  
+                            {popupState => (
+                            <React.Fragment>
+                            <Button 
+                            fullWidth
+                            variant="contained" {...bindTrigger(popupState)}>
+                            From
+                            </Button>
+                            <Menu {...bindMenu(popupState)}>
+                                <MenuItem onClick={popupState.close}>Masr El Gedida</MenuItem>
+                                <MenuItem onClick={popupState.close}>Tagamoa</MenuItem>
+                                <MenuItem onClick={popupState.close}>Zamalek</MenuItem>
+                            </Menu>
+                        </React.Fragment>
+                        )}
+                        </PopupState>
                         <PopupState variant="popover" popupId="demo-popup-menu">
                             {popupState => (
                             <React.Fragment>
-                            <Button variant="contained" {...bindTrigger(popupState)}>
-                            From
+                            <Button 
+                            fullWidth
+                            variant="contained" {...bindTrigger(popupState)}>
+                            To
                             </Button>
                             <Menu {...bindMenu(popupState)}>
                                 <MenuItem onClick={popupState.close}>Masr El Gedida</MenuItem>

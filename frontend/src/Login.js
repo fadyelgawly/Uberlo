@@ -42,7 +42,7 @@ export class Login extends Component{
     render(){
         if (this.state.loggedin){
             return(
-                <Redirect to = "/request/ride"/>
+                <Redirect to = "/rider"/>
             );
         }
         return(

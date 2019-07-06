@@ -28,10 +28,11 @@ router.get('/getUserRides',(req, res, next) => {
 
 
 router.post('/requestRide', (req, res, next) => {
+    const rider = req.body.rider;
     const fromArea = req.body.fromArea;
     const toArea = req.body.toArea;
 
-    connection.query("INSERT INTO ride ( rider, fromArea, toArea) values (1,?,?)",[fromArea, toArea], function(err, rows) { //TODO: rider id
+    connection.query("INSERT INTO ride ( rider, fromArea, toArea) values (?,?,?)",[rider ,fromArea, toArea], function(err, rows) { //TODO: rider id
         if (err){
             res.status(500).json({
                 message: err.message

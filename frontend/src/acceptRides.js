@@ -3,7 +3,7 @@ import ReactTable from "react-table";
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import "react-table/react-table.css"
-import { makeStyles } from '@material-ui/core/styles';
+//import { makeStyles } from '@material-ui/core/styles';
 
 
 
@@ -22,7 +22,7 @@ this.state={
 }
 componentDidMount(){
 
-
+    //USE AXIOS Instead of fetch ya bro
     const url ="https://5f4159ce-95df-4aeb-af90-6039ef45d46a.mock.pstmn.io/demo";
     fetch(url,{
         method: "GET"
