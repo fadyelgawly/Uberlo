@@ -1,4 +1,5 @@
 .gitignore
-
+frontend/node_modules
+api-gateway/node_modules
 api-gateway/db.js
 .vscode/

@@ -26,7 +26,7 @@ router.get('/getUserRides',(req, res, next) => {
     });
 });
 
-router.get('/getAvailableRides',(req, res, next) => {
+router.get('/getAvailableRides',isLoggedIn,(req, res, next) => {
     connection.query("SELECT * FROM ride", function(err, rows) { //TODO: rider id
         if (err)
             res.status(500).json({
