@@ -26,6 +26,17 @@ router.get('/getUserRides',(req, res, next) => {
     });
 });
 
+router.get('/getAvailableRides',(req, res, next) => {
+    connection.query("SELECT * FROM ride", function(err, rows) { //TODO: rider id
+        if (err)
+            res.status(500).json({
+                message: err.message
+            });
+        res.status(200).json({
+            rides: rows
+        });
+    });
+});
 
 router.post('/requestRide', (req, res, next) => {
     const rider = req.body.rider;

@@ -53,7 +53,7 @@ export class RequestRide extends Component {
         })
         .catch(function (error) {
             console.log(error);
-        })
+        });
     };
    
     render(){
@@ -107,6 +107,14 @@ export class RequestRide extends Component {
                         color="primary"
                         onClick= {this.onSubmit}>
                         Request Ride
+                        </Button>
+                        <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        onClick= {this.onSubmit}>
+                        Drive
                         </Button>
                     </Grid> 
                 </Container>

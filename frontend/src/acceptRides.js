@@ -3,6 +3,7 @@ import ReactTable from "react-table";
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import "react-table/react-table.css"
+import axios from "axios"
 //import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -11,25 +12,35 @@ export  class acceptRides extends Component {
      
   
  
-    constructor(props)
-    {
-super(props);
-this.state={
+    constructor(props) {
+        super(props);
+        this.state={
+            rides:[]
+        };
+    }
 
-    posts:[]
-}
+    componentDidMount(){
 
-}
-componentDidMount(){
+        const self = this;
+    
+        
 
-    //USE AXIOS Instead of fetch ya bro
-    const url ="https://5f4159ce-95df-4aeb-af90-6039ef45d46a.mock.pstmn.io/demo";
-    fetch(url,{
-        method: "GET"
-    }).then(response=>response.json()).then(posts=>{
-        this.setState({posts:posts})
-    })
- 
+        axios.get('http://localhost:4000/rides/getAvailableRides', {
+            ...this.state
+        })
+        .then(function (response) {
+            self.setState({ rides: response.data.rides});
+            console.log(self.state);
+
+        })
+        .then(response=>response.json())
+        .then(posts=>{
+            
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    
 }
 
 
@@ -80,39 +91,29 @@ const columns= [
 
 
 ]
-       return(<Container component="main" maxWidth="xl">
+       return(
+        <Container component="main" maxWidth="xl">
            <ReactTable
             columns={columns}
-        data={this.state.posts}
-        
-           ></ReactTable>
-<Button
+
+        data={this.state.rides}></ReactTable>
+                <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
-                
-                onClick={(e) => { 
-                    e.preventDefault();
-                    
-                }
-            }>
+                onClick={(e) => { e.preventDefault();}}>
                 Accept
-            </Button>
-            <Button
+                </Button>
+                <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
-               
-                onClick={(e) => { 
-                    e.preventDefault();
-                    
-                }
-            }>
+                onClick={(e) => { e.preventDefault();}}>
                 Cancel
-            </Button>
-</Container>
+                </Button>
+            </Container>
        );
 }
 
